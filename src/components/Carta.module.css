@@ -1,0 +1,11 @@
+.carta_container{
+    width: 100%;
+    
+    
+}
+.carta{
+    width: 100%;
+    border: 7px solid black;
+    border-radius: 15px;
+    
+}
