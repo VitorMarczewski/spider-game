@@ -31,7 +31,7 @@ export default function Tableau({tableau}: TableauProps){
                         <Carta
                             key={i}
                             numero={carta +1}
-                            style={{marginTop: i === 0 ? 0: -320 }}
+                            style={{marginTop: i === 0 ? 0: -370 }}
                             estaVirada={i === pilha.length -1}
                         />
                 ))}

@@ -1,7 +1,14 @@
 .stock_container{
-    width: 20%;
+    height:400px;
+    max-width: 100%;
     display: flex;
     flex-direction: row;
-    margin-bottom: 2em;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 14.5%;
     
+}
+.carta_stock{
+    width: 9%;
+    margin-right:-11%;
 }

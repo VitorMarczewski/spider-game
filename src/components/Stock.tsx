@@ -16,7 +16,9 @@ export default function Stock({stock} :stockProps){
     return (
         <div className={styles.stock_container}>
             {pilhas.map((pilha,i)=>(
-                <Carta estaVirada ={false} numero={-1} style={{ marginRight: "-50px", zIndex: pilha.length - i }}/>
+                <div className={styles.carta_stock}>
+                    <Carta estaVirada ={false} numero={-1} style={{ zIndex: pilha.length - i }}/>
+                </div>
             ))}
         </div>
     )   
