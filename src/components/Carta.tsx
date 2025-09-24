@@ -19,18 +19,26 @@ import Carta13 from './../assets/cartas/13.jpg';
 // Array com todas as cartas
 const imagens = [Carta1,Carta2,Carta3,Carta4,Carta5,Carta6,Carta7,Carta8,Carta9,Carta10,Carta11,Carta12,Carta13,];
 
+interface Carta{
+    id: string;
+    numero: number;
+    estaVirada: boolean;
+
+}
 interface CartaProps{
     style?: React.CSSProperties; // permite passar style
-    estaVirada: boolean
-    numero: number
-   
+    carta : Carta;
 }
 
-export default function Carta({style, numero,estaVirada} : CartaProps){
-    const [estavirada, setEstaVirada] = useState(estaVirada);
+export default function Carta({style, carta} : CartaProps){
+    const [estavirada, setEstaVirada] = useState(carta.estaVirada);
+    const [selecionada, setSelecionada] = useState(false);
+
+    
+
     return(
         <div className={`${styles.carta_container} }`} style={style} >
-            <img  className={styles.carta} src={estavirada ? imagens[numero -1] : Verso } alt="carta" />
+            <img  className={styles.carta} src={carta.estaVirada ? imagens[carta.numero -1] : Verso } alt="carta" />
         </div>
     )
 }

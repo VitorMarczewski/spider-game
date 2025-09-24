@@ -1,18 +1,31 @@
 import styles from './Tableau.module.css';
 import Carta from './Carta';
 
+interface Carta{
+    id: string;
+    numero: number;
+    estaVirada: boolean;
+}
+
 interface TableauProps{
-    tableau: number[];
+    tableau: Carta[];
 }
 
 export default function Tableau({tableau}: TableauProps){
-    const pilhas : number[][] = []
+    const pilhas : Carta[][] = [];
     let cartaIndex = 0;
 
     for(let i = 0; i< 10; i++){
-        let numCartas= i < 4 ? 6 : 5;
-        pilhas.push(tableau.slice(cartaIndex, cartaIndex + numCartas))
-        cartaIndex += numCartas;
+        let tamanhoPilha = i < 4 ? 6 : 5; 
+        const pilha = tableau.slice(cartaIndex, cartaIndex + tamanhoPilha).map(carta => ({...carta}))
+
+        if(pilha.length > 0){
+            pilha[pilha.length -1].estaVirada = true;
+        }
+
+        pilhas.push(pilha);
+
+        cartaIndex+= tamanhoPilha;
     }
 
     
@@ -29,10 +42,10 @@ export default function Tableau({tableau}: TableauProps){
                         
                         //RENDERIZA UMA CARTA
                         <Carta
-                            key={i}
-                            numero={carta +1}
+                            key={carta.id}
+                            carta= {carta}
                             style={{marginTop: i === 0 ? 0: -370 }}
-                            estaVirada={i === pilha.length -1}
+                            
                         />
                 ))}
             </div>

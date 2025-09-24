@@ -1,15 +1,22 @@
 import { useState } from "react"
 import styles from './Stock.module.css'
 import Carta from "./Carta";
+interface Carta{
+    id: string;
+    numero: number;
+    estaVirada: boolean;
+}
 interface stockProps{
-    stock : number[]
+    stock : Carta[]
 }
 
 export default function Stock({stock} :stockProps){
-    const pilhas: number[][] = [];
+    const pilhas: Carta[][] = [];
     let start = 0;
     for(let i = 0; i < 4; i++){
-        pilhas.push(stock.slice(start, start+10))
+        let pilha = stock.slice(start,start+10).map((carta)=>({...carta}));
+        
+        pilhas.push(pilha);
         start+=10
     }
     console.log(pilhas)
@@ -17,7 +24,7 @@ export default function Stock({stock} :stockProps){
         <div className={styles.stock_container}>
             {pilhas.map((pilha,i)=>(
                 <div className={styles.carta_stock}>
-                    <Carta estaVirada ={false} numero={-1} style={{ zIndex: pilha.length - i }}/>
+                    <Carta carta={pilha[i]} style={{ zIndex: pilha.length - i }}/>
                 </div>
             ))}
         </div>
