@@ -1,6 +1,7 @@
-import { useState } from "react"
+
 import styles from './Stock.module.css'
 import Carta from "./Carta";
+
 interface Carta{
     id: string;
     numero: number;
@@ -19,11 +20,10 @@ export default function Stock({stock} :stockProps){
         pilhas.push(pilha);
         start+=10
     }
-    console.log(pilhas)
     return (
         <div className={styles.stock_container}>
             {pilhas.map((pilha,i)=>(
-                <div className={styles.carta_stock}>
+                <div className={styles.carta_stock} key={i}>
                     <Carta carta={pilha[i]} style={{ zIndex: pilha.length - i }}/>
                 </div>
             ))}

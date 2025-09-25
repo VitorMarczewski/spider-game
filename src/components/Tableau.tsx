@@ -27,7 +27,26 @@ export default function Tableau({tableau}: TableauProps){
 
         cartaIndex+= tamanhoPilha;
     }
+    
+    function handleCartaClick(carta: Carta, pilha: number, indexCarta: number){
+        let pilhaAtual : Carta[] = pilhas[pilha];
 
+        
+            let ultimaCartaSequencia = pilhaAtual[indexCarta];
+            for(let i = indexCarta; i < pilhaAtual.length -1; i++ ){
+                
+                if(pilhaAtual[i].numero - pilhaAtual[i +1].numero != 1){
+
+                    console.log("sequencia acabou aqui")
+                }
+            }
+            if(ultimaCartaSequencia){
+                
+            }
+            
+        
+        
+    }
     
     return(
         //CONTAINER
@@ -45,7 +64,7 @@ export default function Tableau({tableau}: TableauProps){
                             key={carta.id}
                             carta= {carta}
                             style={{marginTop: i === 0 ? 0: -370 }}
-                            
+                            onCartaClick ={()=> handleCartaClick(carta,pilhaIndex,i)}
                         />
                 ))}
             </div>

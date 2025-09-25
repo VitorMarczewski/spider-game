@@ -23,22 +23,29 @@ interface Carta{
     id: string;
     numero: number;
     estaVirada: boolean;
-
 }
 interface CartaProps{
     style?: React.CSSProperties; // permite passar style
     carta : Carta;
+    onCartaClick: () => void;
+    
 }
 
-export default function Carta({style, carta} : CartaProps){
+export default function Carta({style, carta,onCartaClick} : CartaProps){
     const [estavirada, setEstaVirada] = useState(carta.estaVirada);
     const [selecionada, setSelecionada] = useState(false);
 
-    
+    function handleSubmit(){
+       setSelecionada(true);
+       if(onCartaClick){
+         onCartaClick();
+       }
+       
+    }
 
     return(
-        <div className={`${styles.carta_container} }`} style={style} >
-            <img  className={styles.carta} src={carta.estaVirada ? imagens[carta.numero -1] : Verso } alt="carta" />
+        <div className={`${styles.carta_container} ${selecionada ? styles.selecionada : ""}`} style={style} >
+            <img  className={styles.carta} src={carta.estaVirada ? imagens[carta.numero -1] : Verso } alt="carta"  onClick={estavirada ? (() => (handleSubmit())): null } />
         </div>
     )
 }
