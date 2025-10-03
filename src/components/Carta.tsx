@@ -1,5 +1,5 @@
 import styles from "./Carta.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Verso from "./../assets/cartas/verso.jpg";
 import Carta1 from './../assets/cartas/1.jpg';
@@ -16,36 +16,35 @@ import Carta11 from './../assets/cartas/11.jpg';
 import Carta12 from './../assets/cartas/12.jpg';
 import Carta13 from './../assets/cartas/13.jpg';
 
+import type { Carta } from "../types/Carta";
+
 // Array com todas as cartas
-const imagens = [Carta1,Carta2,Carta3,Carta4,Carta5,Carta6,Carta7,Carta8,Carta9,Carta10,Carta11,Carta12,Carta13,];
+const imagens = [Carta1, Carta2, Carta3, Carta4, Carta5, Carta6, Carta7, Carta8, Carta9, Carta10, Carta11, Carta12, Carta13,];
 
-interface Carta{
-    id: string;
-    numero: number;
-    estaVirada: boolean;
-}
-interface CartaProps{
+
+interface CartaProps {
     style?: React.CSSProperties; // permite passar style
-    carta : Carta;
-    onCartaClick: () => void;
+    carta: Carta;
+    onCartaClick?: () => void;
     
+
 }
 
-export default function Carta({style, carta,onCartaClick} : CartaProps){
-    const [estavirada, setEstaVirada] = useState(carta.estaVirada);
-    const [selecionada, setSelecionada] = useState(false);
+export default function Carta({ style, carta, onCartaClick}: CartaProps) {
+    
+   
 
-    function handleSubmit(){
-       setSelecionada(true);
-       if(onCartaClick){
-         onCartaClick();
-       }
-       
+    function handleSubmit() {
+        if (onCartaClick) {
+            onCartaClick();
+        }
+
     }
 
-    return(
-        <div className={`${styles.carta_container} ${selecionada ? styles.selecionada : ""}`} style={style} >
-            <img  className={styles.carta} src={carta.estaVirada ? imagens[carta.numero -1] : Verso } alt="carta"  onClick={estavirada ? (() => (handleSubmit())): null } />
+    return (
+        <div className={`${styles.carta_container} ${carta.estaSelecionada ? styles.selecionada : ""}`} style={style} >
+            {/*@ts-ignore */}
+            <img className={styles.carta} src={carta.estaVirada ? imagens[carta.numero - 1] : Verso} alt="carta" onClick={carta.estaVirada ? (() => (handleSubmit())) : null} />
         </div>
     )
 }
