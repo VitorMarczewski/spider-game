@@ -20,11 +20,8 @@ export default function Pilha({ pilhaObj, estadoGame, setEstadoGame, sequencia, 
     const [pilha, setPilha] = useState<typePilha>(pilhaObj);
 
     useEffect(() => {
-        if (sequencia) {
-            sequencia.forEach(carta => console.log(carta))
-        }
-        if (sequencia && pilha.id === idPilhaSequencia && estadoGame === "moverSequencia") {
 
+        if (sequencia && pilha.id === idPilhaSequencia && estadoGame === "moverSequencia") {
             excluirSequencia(sequencia);
         }
     }, [sequencia, idPilhaSequencia, estadoGame])
@@ -32,31 +29,25 @@ export default function Pilha({ pilhaObj, estadoGame, setEstadoGame, sequencia, 
 
 
     function selecionarSequencia(carta: typeCarta, indexCarta: number) {
-
+        
         let sequencia: typeCarta[] = [];
         let sequenciaValida: boolean = true;
 
-        for (let i = indexCarta; i < pilha.cartas.length; i++) {
+        sequencia.push(pilha.cartas[indexCarta]);
+
+        for (let i = indexCarta; i < pilha.cartas.length - 1; i++) {
             let cartaAtual: typeCarta = pilha.cartas[i];
             let prox: typeCarta = pilha.cartas[i + 1];
 
-            sequencia.push(cartaAtual);
-            if (!prox) {
-
-                break;
-            }
-            else if (cartaAtual.numero - prox.numero == 1) {
-                //CARTA DA SEQUENCIA É VALIDA
-                sequencia.push(prox);
-                cartaAtual = prox;
-            }
-            else if (cartaAtual.numero - prox.numero != 1) {
+            if (cartaAtual.numero - prox.numero === 1) {
+                sequencia.push(prox); // adiciona a próxima carta válida
+            } else {
                 sequenciaValida = false;
-                
                 break;
             }
-
         }
+        
+        
         if (sequenciaValida) {
             setPilha(prevPilha => prevPilha ? {
                 ...prevPilha,
@@ -70,7 +61,11 @@ export default function Pilha({ pilhaObj, estadoGame, setEstadoGame, sequencia, 
             setSequencia(sequencia);
             setIdPilhaSequencia(pilha.id)
             setEstadoGame("movendo");
+            console.log("Sequencia valida")
+            console.log("lenght" + sequencia.length)
+            sequencia.forEach(carta => console.log(carta.numero))
         } else {
+           
             setSequencia([]);
             setEstadoGame("selecionando");
             setIdPilhaSequencia(undefined);
@@ -89,7 +84,6 @@ export default function Pilha({ pilhaObj, estadoGame, setEstadoGame, sequencia, 
             setEstadoGame("moverSequencia")
         } else {
             setIdPilhaSequencia(undefined);
-            setSequencia([]);
             setEstadoGame("selecionando")
             alert('movimento inválido');
         }
